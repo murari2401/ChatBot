@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width" , intial-scale= "1.00">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet"  href="Chatbot/Bot/ui/assets/bootstrap.css">
+	<link rel="stylesheet"  href="Chatbot/Bot/ui/assets/bootstrap.min.css">
+	<script src="Chatbot/Bot/ui/assets/js/jquery-3.4.1.min.js"></script>
+	<script src="Chatbot/Bot/ui/assets/js/bootstrap.js"></script>
+	<script src="Chatbot/Bot/ui/assets/js/bootstrap.min.js"></script>
+	<title>CBIT__InfoDesk</title>
+</head>
+
+<body style="background-color:info;">
+	<header>
+		<center>
+			<img src="Chatbot/Bot/ui/logo.jpg">
+		</center>
+	</header>
+	<div class="container">
+		<h1>InfoDesk</h1> <br><br>
+		<div id="userinput" class="alert alert-success" roles="alert"></div>
+		<div id="botresponse" class="alert alert-danger" roles="alert"></div>
+		<input type="text" name="user_input" id="user_input" class="input-small"><br><br>
+		<button onclick="sendToServer()" class="btn btn-success" id="bottn">Send</button>
+		<br><br>
+		<span></span>
+	</div>
+
+
+	<script>
+		function sendToServer(){
+			console.log('clicked')
+			$.ajax({
+				data:{
+					user_input : $("#user_input").val()
+				},
+				type: 'POST',
+				url:'http://127.0.0.1:8000/api/talk',
+			}).done(function(data){
+				let user=$("#user_input").val()
+				document.getElementById('userinput').innerText=user,
+				document.getElementById('botresponse').innerText=data.msg
+			})
+		}
+	</script>
+</body>
+</html>
